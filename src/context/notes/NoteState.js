@@ -3,16 +3,97 @@ import NoteContext from "./NoteContext"
 
 const NoteState = (props) => {
 
-    const [globalContext, setGlobalContext] = useState({"name": "witbychance", "type": "humour"})
+    const notesInitial = [
+        {
+            "_id": "6232c66ef3ea02867e67c591",
+            "user": "62329ff2bcbd5ecb6c4b1a49",
+            "title": "note3 updated",
+            "description": "Note3 description updated is here",
+            "tag": "testing",
+            "date": "2022-03-17T05:26:06.530Z",
+            "__v": 0
+        },
+        {
+            "_id": "6232c6c75c0974cf2c9c1345",
+            "user": "62329ff2bcbd5ecb6c4b1a49",
+            "title": "note3",
+            "description": "Note3 description is here",
+            "tag": "testing",
+            "date": "2022-03-17T05:27:35.679Z",
+            "__v": 0
+        },
+        {
+            "_id": "6232c6c75c0974cf2c9c1343",
+            "user": "62329ff2bcbd5ecb6c4b1a49",
+            "title": "note3",
+            "description": "Note3 description is here",
+            "tag": "testing",
+            "date": "2022-03-17T05:27:35.679Z",
+            "__v": 0
+        },
+        {
+            "_id": "6232c6c75c0974cf2c9c1356",
+            "user": "62329ff2bcbd5ecb6c4b1a49",
+            "title": "note3",
+            "description": "Note3 description is here",
+            "tag": "testing",
+            "date": "2022-03-17T05:27:35.679Z",
+            "__v": 0
+        },
+        {
+            "_id": "6232c6c75c0974cf2c9c13665",
+            "user": "62329ff2bcbd5ecb6c4b1a49",
+            "title": "note3",
+            "description": "Note3 description is here",
+            "tag": "testing",
+            "date": "2022-03-17T05:27:35.679Z",
+            "__v": 0
+        },
+        {
+            "_id": "6232c6c75c0974cf2c9c1354",
+            "user": "62329ff2bcbd5ecb6c4b1a49",
+            "title": "note3",
+            "description": "Note3 description is here",
+            "tag": "testing",
+            "date": "2022-03-17T05:27:35.679Z",
+            "__v": 0
+        },
+        {
+            "_id": "6232c6c75c0974cf2c9c13345",
+            "user": "62329ff2bcbd5ecb6c4b1a49",
+            "title": "note3",
+            "description": "Note3 description is here",
+            "tag": "testing",
+            "date": "2022-03-17T05:27:35.679Z",
+            "__v": 0
+        }
+    ]
+    const [notes, setNotes] = useState(notesInitial)
+    const createNote = (note_param) => {
 
-    const update = () => {
-        setTimeout(() => {
-            setGlobalContext({"name": "Anurag", "type": "wordplay"})
-        }, 2000);
+        const note = {
+            "_id": "6232c6c75c0974cf2c9c133452",
+            "user": "62329ff2bcbd5ecb6c4b1a49",
+            "title": note_param.title,
+            "description": note_param.description,
+            "tag": note_param.tag,
+            "date": "2022-03-17T05:27:35.679Z",
+            "__v": 0
+        }
+        setNotes( notes.concat(note) )
     }
 
+    const updateNote = (title, description, tag) => {
+        
+    }
+
+    const deleteNote = (title, description, tag) => {
+        
+    }
+
+
     return (
-        <NoteContext.Provider value={{globalContext, update}}>
+        <NoteContext.Provider value={{notes, createNote, updateNote, deleteNote}}>
             {props.children}
         </NoteContext.Provider>
     )
