@@ -68,9 +68,10 @@ const NoteState = (props) => {
             "__v": 0
         }
     ]
-    const [notes, setNotes] = useState(notesInitial)
-    const createNote = (note_param) => {
 
+    const [notes, setNotes] = useState(notesInitial)
+
+    const createNote = (note_param) => {
         const note = {
             "_id": "6232c6c75c0974cf2c9c133452",
             "user": "62329ff2bcbd5ecb6c4b1a49",
@@ -80,20 +81,26 @@ const NoteState = (props) => {
             "date": "2022-03-17T05:27:35.679Z",
             "__v": 0
         }
-        setNotes( notes.concat(note) )
+        setNotes(notes.concat(note))
     }
 
-    const updateNote = (title, description, tag) => {
-        
+    const updateNote = (note) => {
+
+        const temp = notes.findIndex((ok) => ok._id === note._id)
+        const temp_notes = notes
+        temp_notes[temp] = note
+
+        setNotes([...temp_notes])
+        //check why temp_notes isn't working
     }
 
-    const deleteNote = (title, description, tag) => {
-        
+    const deleteNote = (noteId) => {
+        setNotes(notes.filter(note => note._id !== noteId))
     }
 
 
     return (
-        <NoteContext.Provider value={{notes, createNote, updateNote, deleteNote}}>
+        <NoteContext.Provider value={{ notes, createNote, updateNote, deleteNote }}>
             {props.children}
         </NoteContext.Provider>
     )

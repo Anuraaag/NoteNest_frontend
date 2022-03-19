@@ -5,9 +5,6 @@ import { useContext, useState } from 'react'
 const AddNote = () => {
 
     const {createNote} = useContext(NoteContext)
-    const callCreateNote = () => {
-        createNote(note)
-    }
 
     const [note, setNote] = useState({title: "", description: "", tag: "general"})
     const updateValue = (e) => {
@@ -28,7 +25,7 @@ const AddNote = () => {
                 <textarea className="form-control" id="description" name="description" rows="3"  onChange={updateValue} placeholder="Enter note" ></textarea>
             </div>
 
-            <button type="submit" className="btn btn-primary" onClick={callCreateNote}>Submit</button>
+            <button type="submit" className="btn btn-primary" onClick={() => {createNote(note)}}>Add Note</button>
 
         </div>
     )
