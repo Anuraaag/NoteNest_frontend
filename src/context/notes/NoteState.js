@@ -34,19 +34,19 @@ const NoteState = (props) => {
     }
 
 
-    function fetchAllNotes() {
+    const fetchAllNotes = async () => {
 
-        (async () => {
-            const url = `${host}/api/note/fetch`
-            const response = await queryDatabaseWithoutBody(url, `GET`)
-            const fetchedNotes = await response.json()
-            setNotes(fetchedNotes.notes)
-        })()
+        // (async () => {
+        //     const url = `${host}/api/note/fetch`
+        //     const response = await queryDatabaseWithoutBody(url, `GET`)
+        //     const fetchedNotes = await response.json()
+        //     setNotes(fetchedNotes.notes)
+        // })()
 
-        // const url = `${host}/api/note/fetch`
-        // const response = await queryDatabaseWithoutBody(url, `GET`)
-        // const fetchedNotes = await response.json()
-        // setNotes(fetchedNotes.notes)
+        const url = `${host}/api/note/fetch`
+        const response = await queryDatabaseWithoutBody(url, `GET`)
+        const fetchedNotes = await response.json()
+        setNotes(fetchedNotes.notes)
     }
 
     const createNote = (note_param) => {
@@ -54,7 +54,7 @@ const NoteState = (props) => {
         (async () => {
             const url = `${host}/api/note/create`
             const response = await queryDatabaseWithBody(url, note_param, `POST`)
-            fetchAllNotes()
+            await fetchAllNotes()
         })()
 
         // const url = `${host}/api/note/create`
@@ -75,27 +75,27 @@ const NoteState = (props) => {
         // setNotes(notes.concat(note))
     }
 
-    const updateNote = (note) => {
+    const updateNote = async (note) => {
 
-        (async () => {
-            const url = `${host}/api/note/update/${note._id}`
-            const data = {
-                "title": note.title,
-                "description": note.description,
-                "tag": note.tag
-            }
-            const response = await queryDatabaseWithBody(url, data, `PUT`)
-            fetchAllNotes()
-        })()
+        // (async () => {
+        //     const url = `${host}/api/note/update/${note._id}`
+        //     const data = {
+        //         "title": note.title,
+        //         "description": note.description,
+        //         "tag": note.tag
+        //     }
+        //     const response = await queryDatabaseWithBody(url, data, `PUT`)
+        //     await fetchAllNotes()
+        // })()
 
-        // const url = `${host}/api/note/update/${note._id}`
-        // const data = {
-        //     "title": note.title,
-        //     "description": note.description,
-        //     "tag": note.tag
-        // }
-        // const response = await queryDatabaseWithBody(url, data, `PUT`)
-        // fetchAllNotes()
+        const url = `${host}/api/note/update/${note._id}`
+        const data = {
+            "title": note.title,
+            "description": note.description,
+            "tag": note.tag
+        }
+        const response = await queryDatabaseWithBody(url, data, `PUT`)
+        await fetchAllNotes()
 
         // logic for hard data
         // const updateNoteIndex = notes.findIndex((noteElement) => noteElement._id === note._id)
@@ -109,7 +109,7 @@ const NoteState = (props) => {
         (async () => {
             const url = `${host}/api/note/delete/${noteId}`
             const response = await queryDatabaseWithoutBody(url, `DELETE`)
-            fetchAllNotes()
+            await fetchAllNotes()
         })()
 
         // logic for hard data

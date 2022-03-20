@@ -7,8 +7,8 @@ const Notes = () => {
 
     let { notes, fetchAllNotes } = useContext(NoteContext)
 
-    useEffect(() => {
-        fetchAllNotes()
+    useEffect(async () => {
+        await fetchAllNotes()
     }, [])
 
     return (

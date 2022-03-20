@@ -12,6 +12,7 @@ const NoteItem = (props) => {
     const closeModal = useRef(null)
 
     const [noteState, setNoteState] = useState(note) //creating the stateValue. The above note variable has the note fetched from the db
+    
     const updateValue = (e) => {
         setNoteState({...noteState, [e.target.name]: e.target.value})
         // this syntax means, "keep the note as it is" but overwrite any value that is changed.
@@ -19,8 +20,8 @@ const NoteItem = (props) => {
         // And "title" is already a property in the note object. So its value will be used to update our note object
     }
 
-    const callUpdateNote = () => {
-        updateNote(noteState)        
+    const callUpdateNote = async () => {
+        await updateNote(noteState)        
         closeModal.current.click()
     }
 
