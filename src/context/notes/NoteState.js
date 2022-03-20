@@ -12,60 +12,6 @@ const NoteState = (props) => {
             "tag": "testing",
             "date": "2022-03-17T05:26:06.530Z",
             "__v": 0
-        },
-        {
-            "_id": "6232c6c75c0974cf2c9c1345",
-            "user": "62329ff2bcbd5ecb6c4b1a49",
-            "title": "note3",
-            "description": "Note3 description is here",
-            "tag": "testing",
-            "date": "2022-03-17T05:27:35.679Z",
-            "__v": 0
-        },
-        {
-            "_id": "6232c6c75c0974cf2c9c1343",
-            "user": "62329ff2bcbd5ecb6c4b1a49",
-            "title": "note3",
-            "description": "Note3 description is here",
-            "tag": "testing",
-            "date": "2022-03-17T05:27:35.679Z",
-            "__v": 0
-        },
-        {
-            "_id": "6232c6c75c0974cf2c9c1356",
-            "user": "62329ff2bcbd5ecb6c4b1a49",
-            "title": "note3",
-            "description": "Note3 description is here",
-            "tag": "testing",
-            "date": "2022-03-17T05:27:35.679Z",
-            "__v": 0
-        },
-        {
-            "_id": "6232c6c75c0974cf2c9c13665",
-            "user": "62329ff2bcbd5ecb6c4b1a49",
-            "title": "note3",
-            "description": "Note3 description is here",
-            "tag": "testing",
-            "date": "2022-03-17T05:27:35.679Z",
-            "__v": 0
-        },
-        {
-            "_id": "6232c6c75c0974cf2c9c1354",
-            "user": "62329ff2bcbd5ecb6c4b1a49",
-            "title": "note3",
-            "description": "Note3 description is here",
-            "tag": "testing",
-            "date": "2022-03-17T05:27:35.679Z",
-            "__v": 0
-        },
-        {
-            "_id": "6232c6c75c0974cf2c9c13345",
-            "user": "62329ff2bcbd5ecb6c4b1a49",
-            "title": "note3",
-            "description": "Note3 description is here",
-            "tag": "testing",
-            "date": "2022-03-17T05:27:35.679Z",
-            "__v": 0
         }
     ]
 
@@ -86,12 +32,10 @@ const NoteState = (props) => {
 
     const updateNote = (note) => {
 
-        const temp = notes.findIndex((ok) => ok._id === note._id)
-        const temp_notes = notes
-        temp_notes[temp] = note
-
-        setNotes([...temp_notes])
-        //check why temp_notes isn't working
+        const updateNoteIndex = notes.findIndex((noteElement) => noteElement._id === note._id)
+        const notesCopy = [...notes]
+        notesCopy[updateNoteIndex] = note
+        setNotes(notesCopy)
     }
 
     const deleteNote = (noteId) => {
