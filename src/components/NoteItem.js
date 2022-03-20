@@ -19,8 +19,8 @@ const NoteItem = (props) => {
         // And "title" is already a property in the note object. So its value will be used to update our note object
     }
 
-    const callUpdateNote = () => {
-        updateNote(noteState)
+    const callUpdateNote = async () => {
+        await updateNote(noteState)        
         closeModal.current.click()
     }
 
@@ -33,7 +33,7 @@ const NoteItem = (props) => {
                         <div className='d-flex justify-content-between'>
                             <h5 className="card-title">{note.title}</h5>
                             <div>
-                                <i className="fa-solid fa-pen-to-square m-1 mx-2 text-warning" data-toggle="modal" data-target={`#${note._id}`}></i>
+                                <i className="fa-solid fa-pen-to-square m-1 mx-2 text-warning" data-toggle="modal" data-target={`#${note._id}`} ></i>
 
                                 {/*onClick={showAlert("hello", "success")}*/}
 
@@ -69,7 +69,7 @@ const NoteItem = (props) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" ref={closeModal} className="btn btn-secondary" data-dismiss="modal" onClick={() => {setNoteState(note)}} >Close</button>
-                            <button type="button" className="btn btn-primary" onClick={callUpdateNote}  >Save changes</button>
+                            <button type="button" className="btn btn-primary" onClick={callUpdateNote} >Save changes</button>
                         </div>
                     </div>
                 </div>

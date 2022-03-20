@@ -1,64 +1,107 @@
+// try making crud functions sync. using iife maybe.
+// check if response value is fine
+
 import { useState } from "react"
 import NoteContext from "./NoteContext"
 
 const NoteState = (props) => {
 
-    const notesInitial = [
-        {
-            "_id": "6232c66ef3ea02867e67c591",
-            "user": "62329ff2bcbd5ecb6c4b1a49",
-            "title": "note3 updated",
-            "description": "Note3 description updated is here",
-            "tag": "testing",
-            "date": "2022-03-17T05:26:06.530Z",
-            "__v": 0
-        }
-    ]
+    const host = "http://localhost:5000"
+    const [notes, setNotes] = useState([])
+    const auth_token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIzMjlmZjJiY2JkNWVjYjZjNGIxYTQ5In0sImlhdCI6MTY0NzQ5NDM5NX0.EI7CJfLoI-qb4341dGzpKNcM1QWEpEl5qN4g3z1Ob8k`
 
-    const [notes, setNotes] = useState(notesInitial)
 
-    const createNote = (note_param) => {
-        const note = {
-            "_id": "6232c6c75c0974cf2c9c133452",
-            "user": "62329ff2bcbd5ecb6c4b1a49",
-            "title": note_param.title,
-            "description": note_param.description,
-            "tag": note_param.tag,
-            "date": "2022-03-17T05:27:35.679Z",
-            "__v": 0
-        }
-        setNotes(notes.concat(note))
+    const queryDatabaseWithoutBody = async (url, method) => {
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': auth_token
+            }
+        })
+        return response
     }
 
-    const updateNote = (note) => {
-
-        const updateNoteIndex = notes.findIndex((noteElement) => noteElement._id === note._id)
-        const notesCopy = [...notes]
-        notesCopy[updateNoteIndex] = note
-        setNotes(notesCopy)
+    const queryDatabaseWithBody = async (url, data, method) => {
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': auth_token
+            },
+            body: JSON.stringify(data)
+        })
+        return response
     }
 
-    const deleteNote = (noteId) => {
-        setNotes(notes.filter(note => note._id !== noteId))
+
+    async function fetchAllNotes() {
+
+        const url = `${host}/api/note/fetch`
+        const response = await queryDatabaseWithoutBody(url, `GET`)
+        const fetchedNotes = await response.json()
+        setNotes(fetchedNotes.notes)
+
+        // const url = `${host}/api/note/fetch`
+        // const response = await queryDatabaseWithoutBody(url, `GET`)
+        // const fetchedNotes = await response.json()
+        // setNotes(fetchedNotes.notes)
+    }
+
+    const createNote = async (note_param) => {
+
+        const url = `${host}/api/note/create`
+        const response = await queryDatabaseWithBody(url, note_param, `POST`)
+
+        await fetchAllNotes()
+
+        // logic for hard data
+        // const note = {
+        //     "_id": "6232c6c75c0974cf2c9c133452",
+        //     "user": "62329ff2bcbd5ecb6c4b1a49",
+        //     "title": note_param.title,
+        //     "description": note_param.description,
+        //     "tag": note_param.tag,
+        //     "date": "2022-03-17T05:27:35.679Z",
+        //     "__v": 0
+        // }
+        // setNotes(notes.concat(note))
+    }
+
+    const updateNote = async (note) => {
+
+        const url = `${host}/api/note/update/${note._id}`
+        const data = {
+            "title": note.title,
+            "description": note.description,
+            "tag": note.tag
+        }
+        const response = await queryDatabaseWithBody(url, data, `PUT`)
+        await fetchAllNotes()        
+
+        // logic for hard data
+        // const updateNoteIndex = notes.findIndex((noteElement) => noteElement._id === note._id)
+        // const notesCopy = [...notes]
+        // notesCopy[updateNoteIndex] = note
+        // setNotes(notesCopy)
+    }
+
+    const deleteNote = async (noteId) => {
+
+        const url = `${host}/api/note/delete/${noteId}`
+        const response = await queryDatabaseWithoutBody(url, `DELETE`)
+        await fetchAllNotes()
+
+        // logic for hard data
+        // setNotes(notes.filter(note => note._id !== noteId))
     }
 
 
     return (
-        <NoteContext.Provider value={{ notes, createNote, updateNote, deleteNote }}>
+        <NoteContext.Provider value={{ fetchAllNotes, notes, createNote, updateNote, deleteNote }}>
             {props.children}
         </NoteContext.Provider>
     )
 }
 
 export default NoteState
-
-/*
-Description: 
-
-> Using createContext method from react library, we are able to create an object that can help in setting global variables.
-> So we create this object and make it available from NoteContext.js
-> Next NoteState.js creates a state with the wannabe global variables. And returns the NoteContext.Provider component with these values.
-> Next, we enclose the App.js' return block inside the NoteState Component.
-> Now, if we observe the NoteState's return value, we realise that the whole component tree in App.js is enclosed in NoteContext.Provider and also the value passed in this component are avalible throughout the tree.
-> Any component can now use the variables & functions passed in the NoteContext.Provider. And they must import it, as they use it.
-*/

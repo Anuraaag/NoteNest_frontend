@@ -5,7 +5,13 @@ import AddNote from './AddNote'
 
 const Notes = () => {
 
-    let { notes } = useContext(NoteContext)
+    let { notes, fetchAllNotes } = useContext(NoteContext)
+
+    useEffect(() => {
+        (async () => {
+            await fetchAllNotes()
+        })()
+    }, [])
 
     return (
         <>
