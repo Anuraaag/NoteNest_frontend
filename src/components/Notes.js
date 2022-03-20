@@ -7,8 +7,8 @@ const Notes = () => {
 
     let { notes, fetchAllNotes } = useContext(NoteContext)
 
-    useEffect(async () => {
-        await fetchAllNotes()
+    useEffect( () => {
+        (async () => { await fetchAllNotes() })()
     }, [])
 
     return (
@@ -16,7 +16,7 @@ const Notes = () => {
             <AddNote />
 
             <div className='container my-5'>
-                <h2>My Notes</h2>
+                <h2>My Notes</h2> <p>{notes.length===0 && 'No notes to display'}</p>
                 <div className='row'>
                     {notes.map(note => {
                         return <NoteItem note={note} key={note._id} />

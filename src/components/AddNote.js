@@ -18,14 +18,14 @@ const AddNote = () => {
         <div className='container my-3'>
             <h2>Add a Note</h2>
             <div className="mb-3 mt-4 d-flex justify-content-between">
-                <input type="text" className="form-control col-md-6 d-inline-block" id="title" name="title" onChange={updateValue} placeholder="Note Title" />
-                <input type="text" className="form-control col-md-5 d-inline-block" id="tag" name="tag"  onChange={updateValue} placeholder="Note Tag" />
+                <input type="text" className="form-control col-md-6 d-inline-block" id="title" value={note.title} name="title" onChange={updateValue} placeholder="Note Title" />
+                <input type="text" className="form-control col-md-5 d-inline-block" id="tag" name="tag" value={note.tag} onChange={updateValue} placeholder="Note Tag" />
             </div>
             <div className="mb-3">
-                <textarea className="form-control" id="description" name="description" rows="3"  onChange={updateValue} placeholder="Enter note" ></textarea>
+                <textarea className="form-control" id="description" name="description" rows="3" value={note.description} onChange={updateValue} placeholder="Enter note" ></textarea>
             </div>
 
-            <button type="submit" className="btn btn-primary" onClick={() => {createNote(note)}}>Add Note</button>
+            <button disabled={note.title.length < 3 || note.description.length < 5} type="submit" className="btn btn-primary" onClick={() => {createNote(note); setNote({title: "", description: "", tag: ""}) }}>Add Note</button>
 
         </div>
     )

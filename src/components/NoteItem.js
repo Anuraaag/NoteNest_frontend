@@ -70,7 +70,7 @@ const NoteItem = (props) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" ref={closeModal} className="btn btn-secondary" data-dismiss="modal" onClick={() => {setNoteState(note)}} >Close</button>
-                            <button type="button" className="btn btn-primary" onClick={callUpdateNote} >Save changes</button>
+                            <button disabled={noteState.title.length < 3 || noteState.description.length < 5} type="button" className="btn btn-primary" onClick={callUpdateNote} >Save changes</button>
                         </div>
                     </div>
                 </div>
