@@ -1,4 +1,3 @@
-// try making crud functions sync. using iife maybe.
 // check if response value is fine
 
 import { useState } from "react"
@@ -35,12 +34,14 @@ const NoteState = (props) => {
     }
 
 
-    async function fetchAllNotes() {
+    function fetchAllNotes() {
 
-        const url = `${host}/api/note/fetch`
-        const response = await queryDatabaseWithoutBody(url, `GET`)
-        const fetchedNotes = await response.json()
-        setNotes(fetchedNotes.notes)
+        (async () => {
+            const url = `${host}/api/note/fetch`
+            const response = await queryDatabaseWithoutBody(url, `GET`)
+            const fetchedNotes = await response.json()
+            setNotes(fetchedNotes.notes)
+        })()
 
         // const url = `${host}/api/note/fetch`
         // const response = await queryDatabaseWithoutBody(url, `GET`)
@@ -48,12 +49,18 @@ const NoteState = (props) => {
         // setNotes(fetchedNotes.notes)
     }
 
-    const createNote = async (note_param) => {
+    const createNote = (note_param) => {
 
-        const url = `${host}/api/note/create`
-        const response = await queryDatabaseWithBody(url, note_param, `POST`)
+        (async () => {
+            const url = `${host}/api/note/create`
+            const response = await queryDatabaseWithBody(url, note_param, `POST`)
+            fetchAllNotes()
+        })()
 
-        await fetchAllNotes()
+        // const url = `${host}/api/note/create`
+        // const response = await queryDatabaseWithBody(url, note_param, `POST`)
+        // fetchAllNotes()
+
 
         // logic for hard data
         // const note = {
@@ -68,16 +75,27 @@ const NoteState = (props) => {
         // setNotes(notes.concat(note))
     }
 
-    const updateNote = async (note) => {
+    const updateNote = (note) => {
 
-        const url = `${host}/api/note/update/${note._id}`
-        const data = {
-            "title": note.title,
-            "description": note.description,
-            "tag": note.tag
-        }
-        const response = await queryDatabaseWithBody(url, data, `PUT`)
-        await fetchAllNotes()        
+        (async () => {
+            const url = `${host}/api/note/update/${note._id}`
+            const data = {
+                "title": note.title,
+                "description": note.description,
+                "tag": note.tag
+            }
+            const response = await queryDatabaseWithBody(url, data, `PUT`)
+            fetchAllNotes()
+        })()
+
+        // const url = `${host}/api/note/update/${note._id}`
+        // const data = {
+        //     "title": note.title,
+        //     "description": note.description,
+        //     "tag": note.tag
+        // }
+        // const response = await queryDatabaseWithBody(url, data, `PUT`)
+        // fetchAllNotes()
 
         // logic for hard data
         // const updateNoteIndex = notes.findIndex((noteElement) => noteElement._id === note._id)
@@ -86,11 +104,13 @@ const NoteState = (props) => {
         // setNotes(notesCopy)
     }
 
-    const deleteNote = async (noteId) => {
+    const deleteNote = (noteId) => {
 
-        const url = `${host}/api/note/delete/${noteId}`
-        const response = await queryDatabaseWithoutBody(url, `DELETE`)
-        await fetchAllNotes()
+        (async () => {
+            const url = `${host}/api/note/delete/${noteId}`
+            const response = await queryDatabaseWithoutBody(url, `DELETE`)
+            fetchAllNotes()
+        })()
 
         // logic for hard data
         // setNotes(notes.filter(note => note._id !== noteId))

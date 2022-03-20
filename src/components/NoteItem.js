@@ -19,8 +19,8 @@ const NoteItem = (props) => {
         // And "title" is already a property in the note object. So its value will be used to update our note object
     }
 
-    const callUpdateNote = async () => {
-        await updateNote(noteState)        
+    const callUpdateNote = () => {
+        updateNote(noteState)        
         closeModal.current.click()
     }
 
