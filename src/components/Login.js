@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Login = props => {
 
+    const {showAlert}  = props
+    
     const [credentials, setCredentials] = useState({ email: "", password: "" })
-
     const updateCredentials = (event) => {
         setCredentials({...credentials, [event.target.name]: event.target.value})
     }
@@ -28,18 +29,18 @@ const Login = () => {
 
         const data = await response.json()
 
-        if(data.success && data.payload){             // logged in successfully
-            localStorage.setItem('token', data.payload) // Saving the JWT
-            navigate("/")
+        if(data.success && data.payload.data){             // logged in successfully
+            localStorage.setItem('token', data.payload.data) // Saving the JWT
+            navigate("/") // redirecting to home
+            showAlert("Logged In Successfully", "primary")
         }
         else{
-            // not logged in
+            showAlert(data.payload.message, "danger")
         }
-        
     }
 
     return (
-        <div className='card col-md-6 offset-md-3 p-5'>
+        <div className='card col-md-6 offset-md-3 p-5 mt-5'>
             <h2 className='mb-4 text-center'> Log in Now</h2>
             <form onSubmit={loginMethod}>
                 <div className="form-group">

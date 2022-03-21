@@ -28,7 +28,7 @@ const NoteItem = (props) => {
     // const showAlert = useContext(AlertContext).showAlert
     return (
         <>
-            <div className='col-md-4 my-3'>
+            <div className='col-md-4 col-sm-6 my-3'>
                 <div className="card" >
                     <div className="card-body">
                         <div className='d-flex justify-content-between'>

@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Signup = () => {
+const Signup = (props) => {
 
     const [fields, setFields] = useState({ name: "", email: "", password: "", confirm_password: "" })
 
@@ -11,6 +11,9 @@ const Signup = () => {
     }
 
     const navigate = useNavigate()
+    const {showAlert}  = props
+
+    const capitalize = word => word.charAt(0).toUpperCase() + word.slice(1)
 
 
     const signupMethod = async (event) => {
@@ -35,22 +38,23 @@ const Signup = () => {
 
             const data = await response.json()
 
-            if (data.success && data.payload) {  // logged in successfully
-                localStorage.setItem('token', data.payload)  // Saving the JWT
+            if (data.success && data.payload.data) {  // logged in successfully
+                localStorage.setItem('token', data.payload.data)  // Saving the JWT
                 navigate("/")  // redirecting to home
+                showAlert(`Welcome to NoteNest, ${capitalize(fields.name.split(' ')[0])}!`, "primary")
             }
             else {
-                // not logged in
+                showAlert(data.payload.message, "danger")
             }
         } else {
-            //alert saying password do not match
+            showAlert("Passwords do not match", "danger")
         }
 
 
     }
 
     return (
-        <div className='card col-md-6 offset-md-3 p-5'>
+        <div className='card col-md-6 offset-md-3 p-5 mt-5'>
             <h2 className='mb-4 text-center'> Signup to NoteNest</h2>
             <form onSubmit={signupMethod}>
                 <div className="form-group">

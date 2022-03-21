@@ -46,7 +46,7 @@ const NoteState = (props) => {
         const url = `${host}/api/note/fetch`
         const response = await queryDatabaseWithoutBody(url, `GET`)
         const json = await response.json()
-        const notes = json.payload
+        const notes = json.payload.data
         setNotes(notes)
     }
 
