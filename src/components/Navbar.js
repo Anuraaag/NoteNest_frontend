@@ -4,11 +4,6 @@ import { Link, useLocation } from "react-router-dom"
 export const Navbar = props => {
 
   let location = useLocation()
-  
-  // testing useEffect hook based on change of a value. And not simply as a replacement of componentDidMount()
-  // useEffect(() => {
-  //   console.log(location.pathname)
-  // }, [location])
 
   return (
     <div>
@@ -29,8 +24,8 @@ export const Navbar = props => {
 
           </ul>
           <form className="form-inline my-2 my-lg-0">
-            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <Link to="/login" className="btn btn-outline-info mx-2" role="button">Login</Link>
+            <Link to="/signup" className="btn btn-outline-info mx-2" role="button">Signup</Link>
           </form>
         </div>
       </nav>

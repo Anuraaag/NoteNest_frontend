@@ -45,8 +45,9 @@ const NoteState = (props) => {
 
         const url = `${host}/api/note/fetch`
         const response = await queryDatabaseWithoutBody(url, `GET`)
-        const fetchedNotes = await response.json()
-        setNotes(fetchedNotes.notes)
+        const json = await response.json()
+        const notes = json.payload
+        setNotes(notes)
     }
 
     const createNote = (note_param) => {
@@ -54,7 +55,7 @@ const NoteState = (props) => {
         (async () => {
             const url = `${host}/api/note/create`
             const response = await queryDatabaseWithBody(url, note_param, `POST`)
-            await fetchAllNotes()
+            if (response) await fetchAllNotes()
         })()
 
         // const url = `${host}/api/note/create`
@@ -95,7 +96,7 @@ const NoteState = (props) => {
             "tag": note.tag
         }
         const response = await queryDatabaseWithBody(url, data, `PUT`)
-        await fetchAllNotes()
+        if (response) await fetchAllNotes()
 
         // logic for hard data
         // const updateNoteIndex = notes.findIndex((noteElement) => noteElement._id === note._id)
@@ -109,7 +110,7 @@ const NoteState = (props) => {
         (async () => {
             const url = `${host}/api/note/delete/${noteId}`
             const response = await queryDatabaseWithoutBody(url, `DELETE`)
-            await fetchAllNotes()
+            if (response) await fetchAllNotes()
         })()
 
         // logic for hard data
