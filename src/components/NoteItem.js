@@ -1,8 +1,5 @@
-import React from 'react'
-// import AlertContext from '../context/alert/AlertContext'
-import { useContext, useState } from 'react'
+import React, { useContext, useState, useRef } from 'react'
 import NoteContext from '../context/notes/NoteContext'
-import { useRef } from 'react'
 
 
 const NoteItem = (props) => {

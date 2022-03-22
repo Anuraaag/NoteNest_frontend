@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Signup = (props) => {
@@ -21,7 +20,7 @@ const Signup = (props) => {
 
         if (event.password === event.confirm_password) {
 
-            const host = "http://localhost:5000"
+            const host = process.env.REACT_APP_HOSTPORT
             const url = `${host}/api/auth/createUser`
 
             const response = await fetch(url, {

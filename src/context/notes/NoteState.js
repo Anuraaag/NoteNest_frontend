@@ -1,36 +1,46 @@
-// check if response value is fine
-
 import { useState } from "react"
 import NoteContext from "./NoteContext"
 
 const NoteState = (props) => {
 
-    const host = "http://localhost:5000"
+    const host = process.env.REACT_APP_HOSTPORT
     const [notes, setNotes] = useState([])
     const auth_token = localStorage.getItem('token')
 
 
     const queryDatabaseWithoutBody = async (url, method) => {
-        const response = await fetch(url, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-                'auth-token': auth_token
-            }
-        })
-        return response
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': auth_token
+                }
+            })
+            return response
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const queryDatabaseWithBody = async (url, data, method) => {
-        const response = await fetch(url, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-                'auth-token': auth_token
-            },
-            body: JSON.stringify(data)
-        })
-        return response
+
+        try {
+
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': auth_token
+                },
+                body: JSON.stringify(data)
+            })
+            return response
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
@@ -42,22 +52,31 @@ const NoteState = (props) => {
         //     const fetchedNotes = await response.json()
         //     setNotes(fetchedNotes.notes)
         // })()
+        try {
 
-        const url = `${host}/api/note/fetch`
-        const response = await queryDatabaseWithoutBody(url, `GET`)
-        const json = await response.json()
-        const notes = json.payload.data
-        setNotes(notes)
+
+            const url = `${host}/api/note/fetch`
+            const response = await queryDatabaseWithoutBody(url, `GET`)
+            const json = await response.json()
+            const notes = json.payload.data
+            setNotes(notes)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const createNote = (note_param) => {
+        try {
 
-        (async () => {
-            const url = `${host}/api/note/create`
-            const response = await queryDatabaseWithBody(url, note_param, `POST`)
-            if (response) await fetchAllNotes()
-        })()
 
+            (async () => {
+                const url = `${host}/api/note/create`
+                const response = await queryDatabaseWithBody(url, note_param, `POST`)
+                if (response) await fetchAllNotes()
+            })()
+        } catch (error) {
+            console.log(error)
+        }
         // const url = `${host}/api/note/create`
         // const response = await queryDatabaseWithBody(url, note_param, `POST`)
         // fetchAllNotes()
@@ -89,15 +108,20 @@ const NoteState = (props) => {
         //     await fetchAllNotes()
         // })()
 
-        const url = `${host}/api/note/update/${note._id}`
-        const data = {
-            "title": note.title,
-            "description": note.description,
-            "tag": note.tag
-        }
-        const response = await queryDatabaseWithBody(url, data, `PUT`)
-        if (response) await fetchAllNotes()
+        try {
 
+
+            const url = `${host}/api/note/update/${note._id}`
+            const data = {
+                "title": note.title,
+                "description": note.description,
+                "tag": note.tag
+            }
+            const response = await queryDatabaseWithBody(url, data, `PUT`)
+            if (response) await fetchAllNotes()
+        } catch (error) {
+            console.log(error)
+        }
         // logic for hard data
         // const updateNoteIndex = notes.findIndex((noteElement) => noteElement._id === note._id)
         // const notesCopy = [...notes]
@@ -106,13 +130,16 @@ const NoteState = (props) => {
     }
 
     const deleteNote = (noteId) => {
+        try {
 
-        (async () => {
-            const url = `${host}/api/note/delete/${noteId}`
-            const response = await queryDatabaseWithoutBody(url, `DELETE`)
-            if (response) await fetchAllNotes()
-        })()
-
+            (async () => {
+                const url = `${host}/api/note/delete/${noteId}`
+                const response = await queryDatabaseWithoutBody(url, `DELETE`)
+                if (response) await fetchAllNotes()
+            })()
+        } catch (error) {
+            console.log(error)
+        }
         // logic for hard data
         // setNotes(notes.filter(note => note._id !== noteId))
     }

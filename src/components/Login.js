@@ -15,9 +15,8 @@ const Login = props => {
     const loginMethod = async (event) => {
         event.preventDefault()
 
-        const host = "http://localhost:5000"
+        const host = process.env.REACT_APP_HOSTPORT
         const url = `${host}/api/auth/login`
-
 
         const response = await fetch(url, {
             method: 'POST',
