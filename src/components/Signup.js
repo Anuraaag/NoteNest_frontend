@@ -20,7 +20,8 @@ const Signup = (props) => {
 
         if (event.password === event.confirm_password) {
 
-            const host = process.env.REACT_APP_HOSTPORT
+            // const host = process.env.REACT_APP_HOSTPORT
+            const host = `https://note-nest.herokuapp.com`
             const url = `${host}/api/auth/createUser`
 
             const response = await fetch(url, {

@@ -3,7 +3,8 @@ import NoteContext from "./NoteContext"
 
 const NoteState = (props) => {
 
-    const host = process.env.REACT_APP_HOSTPORT
+    // const host = process.env.REACT_APP_HOSTPORT
+    const host = `https://note-nest.herokuapp.com`
     const [notes, setNotes] = useState([])
     const auth_token = localStorage.getItem('token')
 

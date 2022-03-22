@@ -15,7 +15,8 @@ const Login = props => {
     const loginMethod = async (event) => {
         event.preventDefault()
 
-        const host = process.env.REACT_APP_HOSTPORT
+        // const host = process.env.REACT_APP_HOSTPORT
+        const host = `https://note-nest.herokuapp.com`
         const url = `${host}/api/auth/login`
 
         const response = await fetch(url, {
