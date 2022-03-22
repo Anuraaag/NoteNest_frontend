@@ -40,8 +40,8 @@ const Signup = (props) => {
 
             if (data.success && data.payload.data) {  // logged in successfully
                 localStorage.setItem('token', data.payload.data)  // Saving the JWT
-                navigate("/")  // redirecting to home
                 showAlert(`Welcome to NoteNest, ${capitalize(fields.name.split(' ')[0])}!`, "primary")
+                navigate("/")  // redirecting to home
             }
             else {
                 showAlert(data.payload.message, "danger")

@@ -31,8 +31,8 @@ const Login = props => {
 
         if(data.success && data.payload.data){             // logged in successfully
             localStorage.setItem('token', data.payload.data) // Saving the JWT
-            navigate("/") // redirecting to home
             showAlert("Logged In Successfully", "primary")
+            navigate("/") // redirecting to home
         }
         else{
             showAlert(data.payload.message, "danger")

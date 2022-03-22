@@ -15,14 +15,14 @@ const AddNote = () => {
     }
 
     return (
-        <div className='container my-3'>
+        <div className='container my-3 mt-5'>
             <h2>Add a Note</h2>
             <div className="mb-3 mt-4 d-sm-flex d-md-flex d-xs-flex justify-content-between">
-                <input type="text" className="form-control col-md-6 col-sm-6 col-12 d-sm-inline-block d-md-inline-block d-lg-inline-block mb-sm-0 mb-md-0 mb-lg-0 mb-3" id="title" value={note.title} name="title" onChange={updateValue} placeholder="Note Title" />
+                <input type="text" className="form-control col-md-6 col-sm-6 col-12 d-sm-inline-block d-md-inline-block d-lg-inline-block mb-sm-0 mb-md-0 mb-lg-0 mb-3" id="title" value={note.title} name="title" onChange={updateValue} placeholder="Note Title (minimum 3 characters)" />
                 <input type="text" className="form-control col-md-5 col-sm-5 col-12  d-sm-inline-block d-md-inline-block d-lg-inline-block" id="tag" name="tag" value={note.tag} onChange={updateValue} placeholder="Note Tag" />
             </div>
             <div className="mb-3">
-                <textarea className="form-control" id="description" name="description" rows="3" value={note.description} onChange={updateValue} placeholder="Enter note" ></textarea>
+                <textarea className="form-control" id="description" name="description" rows="3" value={note.description} onChange={updateValue} placeholder="Enter note (minimum 5 characters)" ></textarea>
             </div>
 
             <button disabled={note.title.length < 3 || note.description.length < 5} type="submit" className="btn btn-primary" onClick={() => { createNote(note); setNote({ title: "", description: "", tag: "" }) }}>Add Note</button>

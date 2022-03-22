@@ -2,13 +2,21 @@ import React, { useContext, useEffect } from 'react'
 import NoteContext from '../context/notes/NoteContext'
 import NoteItem from './NoteItem'
 import AddNote from './AddNote'
+import { useNavigate } from 'react-router-dom'
 
 const Notes = () => {
 
     let { notes, fetchAllNotes } = useContext(NoteContext)
+    const navigate = useNavigate()
 
     useEffect( () => {
-        (async () => { await fetchAllNotes() })()
+        if(localStorage.getItem('token')){  // Make a fetch request only if a token is present. If the token is tampered the server will anyway handle it
+            (async () => { await fetchAllNotes() })()
+        }
+        else{
+            navigate('/login')
+        }
+        //eslint-disable-next-line
     }, [])
 
     return (

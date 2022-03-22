@@ -31,7 +31,7 @@ const NoteItem = (props) => {
                 <div className="card" >
                     <div className="card-body">
                         <div className='d-flex justify-content-between flex-wrap'>
-                            <h5 style={{'word-break': 'break-word'}}>{note.title}</h5>
+                            <h5 style={{'wordBreak': 'break-word'}}>{note.title}</h5>
                             <div>
                                 <i className="fa-solid fa-pen-to-square m-1 mx-2 text-warning" data-toggle="modal" data-target={`#${note._id}`} ></i>
 

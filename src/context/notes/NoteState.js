@@ -7,7 +7,7 @@ const NoteState = (props) => {
 
     const host = "http://localhost:5000"
     const [notes, setNotes] = useState([])
-    const auth_token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIzMjlmZjJiY2JkNWVjYjZjNGIxYTQ5In0sImlhdCI6MTY0NzQ5NDM5NX0.EI7CJfLoI-qb4341dGzpKNcM1QWEpEl5qN4g3z1Ob8k`
+    const auth_token = localStorage.getItem('token')
 
 
     const queryDatabaseWithoutBody = async (url, method) => {
