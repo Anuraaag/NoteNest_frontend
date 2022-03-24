@@ -7,7 +7,13 @@ const Login = props => {
     
     const [credentials, setCredentials] = useState({ email: "", password: "" })
     const updateCredentials = (event) => {
-        setCredentials({...credentials, [event.target.name]: event.target.value})
+        // setCredentials({...credentials, [event.target.name]: event.target.value})
+
+
+        // the credVariable doesn't have any value initially. React will pass the state variable (credentials) as an argument while executing this function
+        setCredentials( credVariable => { 
+            return { ...credVariable, [event.target.name]: event.target.value }
+        })
     }
 
     const navigate = useNavigate()

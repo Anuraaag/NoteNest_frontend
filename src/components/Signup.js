@@ -6,7 +6,12 @@ const Signup = (props) => {
     const [fields, setFields] = useState({ name: "", email: "", password: "", confirm_password: "" })
 
     const updateFields = (event) => {
-        setFields({ ...fields, [event.target.name]: event.target.value })
+        // setFields({ ...fields, [event.target.name]: event.target.value })
+
+        // the fieldVariable doesn't have any value initially. React will pass the state variable (fields) as an argument while executing this function
+        setFields( fieldVariable => {
+            return { ...fieldVariable, [event.target.name]: event.target.value }
+        })
     }
 
     const navigate = useNavigate()

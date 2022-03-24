@@ -7,7 +7,14 @@ const AddNote = () => {
 
     const [note, setNote] = useState({ title: "", description: "", tag: "general" })
     const updateValue = (e) => {
-        setNote({ ...note, [e.target.name]: e.target.value })
+
+        // setNote({ ...note, [e.target.name]: e.target.value })
+
+        // the noteVariable doesn't have any value initially. React will pass the state variable (note) as an argument while executing this function
+        setNote( noteVariable => { 
+            return { ...noteVariable, [e.target.name]: e.target.value }
+        })
+
         // this syntax means, "keep the note as it is" but overwrite any value that is changed.
         // So here, if title is changed, the e.target.name will be equal to "title". 
         // And "title" is already a property in the note object. So its value will be used to update our note object

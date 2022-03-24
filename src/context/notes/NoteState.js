@@ -93,7 +93,11 @@ const NoteState = (props) => {
         //     "date": "2022-03-17T05:27:35.679Z",
         //     "__v": 0
         // }
+
         // setNotes(notes.concat(note))
+
+        // // the notesVariable doesn't have any value initially. React will pass the state variable (notes) as an argument while executing this function
+        // // setNotes( notesVariable => notesVariable.concat(note))
     }
 
     const updateNote = async (note) => {
@@ -143,6 +147,9 @@ const NoteState = (props) => {
         }
         // logic for hard data
         // setNotes(notes.filter(note => note._id !== noteId))
+
+        // // the notesVariable doesn't have any value initially. React will pass the state variable (notes) as an argument while executing this function
+        // // setNotes( notesVariable => notesVariable.filter(note => note._id !== noteId) )
     }
 
 
